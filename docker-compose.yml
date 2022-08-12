@@ -63,6 +63,18 @@ services:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        networks:
+            - sail
+        ports:
+            - '8111:80'
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=mysql
+            - PMA_USER=root
+            - PMA_PASSWORD=password
     webserver:
         image: 'nginx:alpine'
         volumes:
